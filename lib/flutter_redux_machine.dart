@@ -47,7 +47,7 @@ typedef StateMapper<S, T> = T Function(S state);
 /// For more complex use cases consider implementing custom [StatefulWidget]
 /// which uses a descendant of [StoreConnectedState].
 abstract class StoreConnectedWidget<S, T> extends StatefulWidget {
-  StoreConnectedWidget({Key key, @required StateMapper<S, T> this.mapper})
+  StoreConnectedWidget(StateMapper<S, T> this.mapper, {Key key})
       : super(key: key);
 
   final StateMapper<S, T> mapper;
@@ -67,8 +67,11 @@ class _StoreConnectedWidgetState<S, T>
   Widget build(BuildContext context) => widget.build(context, state);
 }
 
-/// Base state class which can be extended by a [StatefulWidget] connected to a
-/// Redux store.
+/// Base state class which can be used by any [StatefulWidget] that wishes to
+/// be connected to a Redux store.
+///
+/// Provides two lyfe cycle hooks [connect] and [disconnect] which can be used
+/// to allocate necessary resources and/or dispatch actions to the state store.
 abstract class StoreConnectedState<S, T, W extends StatefulWidget>
     extends State<W> {
   /// Maps application [state] to the actual substate object relevant to this
@@ -79,8 +82,9 @@ abstract class StoreConnectedState<S, T, W extends StatefulWidget>
   ///
   /// This method is called only once during lifecycle of this state object.
   ///
-  /// By default only subscribes to a stream of changes for the part of
-  /// application state defined by [map] method.
+  /// It is safe to access [store] and [state] objects from this method. The
+  /// [state] object is always initialized with current value available in
+  /// the [store].
   ///
   /// Descendants are allowed to override this method. This is usually useful
   /// to dispatch necessary actions. Overriden methods must always call super.
@@ -96,6 +100,8 @@ abstract class StoreConnectedState<S, T, W extends StatefulWidget>
   /// Disconnects this state object from the Redux Store.
   ///
   /// This method is called only once during lifecycle of this state object.
+  ///
+  /// It is safe to access [store] and [state] objects from this method.
   ///
   /// Descendants are allowed to override this method. This is usually useful
   /// to dispatch necessary actions. Overriden methods must always call super.
