@@ -123,9 +123,11 @@ class _CommentsViewWithErrorState
   }
 
   void _handleFetchError(error) {
-    setState(() {
-      _error = error;
-    });
+    /// Only update if we are still mounted, otherwise discard
+    if (mounted)
+      setState(() {
+        _error = error;
+      });
   }
 
   @override
