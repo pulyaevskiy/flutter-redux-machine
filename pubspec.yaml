@@ -8,7 +8,7 @@ dependencies:
   flutter:
     sdk: flutter
   redux_machine:
-    git: git@github.com:pulyaevskiy/redux-machine.git
+    git: https://github.com/pulyaevskiy/redux-machine.git
 
 dev_dependencies:
   flutter_test:
