@@ -4,6 +4,9 @@ version: 1.0.0-dev.1.0
 homepage: https://github.com/pulyaevskiy/flutter-redux-machine
 author: Anatoly Pulyaevskiy <email@example.com>
 
+environment:
+  sdk: ">=2.0.0-dev <3.0.0"
+
 dependencies:
   flutter:
     sdk: flutter
