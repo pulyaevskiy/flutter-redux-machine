@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pulyaevskiy/flutter-redux-machine.svg?branch=master)](https://travis-ci.org/pulyaevskiy/flutter-redux-machine) [![codecov](https://codecov.io/gh/pulyaevskiy/flutter-redux-machine/branch/master/graph/badge.svg)](https://codecov.io/gh/pulyaevskiy/flutter-redux-machine)
+
 Integrates [redux_machine][] and Flutter.
 
 ## StoreAccess
