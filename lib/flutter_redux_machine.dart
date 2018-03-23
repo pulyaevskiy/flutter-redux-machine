@@ -1,3 +1,6 @@
+// Copyright (c) 2018, Anatoly Pulyaevskiy. All rights reserved. Use of this source code
+// is governed by a BSD-style license that can be found in the LICENSE file.
+
 /// Integrates redux_machine and Flutter.
 library flutter_redux_machine;
 
@@ -27,8 +30,8 @@ class StoreAccess extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) {
-    return false;
+  bool updateShouldNotify(StoreAccess oldWidget) {
+    return store != oldWidget.store;
   }
 }
 
@@ -70,7 +73,7 @@ class _StoreConnectedWidgetState<S, T>
 /// Base state class which can be used by any [StatefulWidget] that wishes to
 /// be connected to a Redux store.
 ///
-/// Provides two lyfe cycle hooks [connect] and [disconnect] which can be used
+/// Provides two life cycle hooks [connect] and [disconnect] which can be used
 /// to allocate necessary resources and/or dispatch actions to the state store.
 abstract class StoreConnectedState<S, T, W extends StatefulWidget>
     extends State<W> {
@@ -158,7 +161,9 @@ abstract class StoreConnectedState<S, T, W extends StatefulWidget>
   }
 
   void _onDone() {
-    // This can happen in case application's state store was disposed.
-    _subscription = null;
+    setState(() {
+      // This can happen in case application's state store was disposed.
+      _subscription = null;
+    });
   }
 }

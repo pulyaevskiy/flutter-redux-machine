@@ -2,7 +2,7 @@ Integrates [redux_machine][] and Flutter.
 
 ## StoreAccess
 
-Inherited widget which provides access to the application's state store.
+An `InheritedWidget` which provides access to the application's state store.
 
 ```dart
 class MyApp extends StatelessWidget {
@@ -25,11 +25,11 @@ class MyWidget extends StatelessWidget {
 
 ## StoreConnectedWidget
 
-A simple widget connected to the application's state store. Rebuilds 
+A simple widget connected to the application's state store. Rebuilds
 automatically each time connected state object updates.
 
 Usually useful in simple scenarios when there is no need to dispatch Store
-actions or keep additional state. For advanced use cases see 
+actions or keep additional state. For advanced use cases see
 `StoreConnectedState`.
 
 Below is an example of a `StoreConnectedWidget` which reacts to online status
@@ -53,7 +53,7 @@ class OnlineIcon extends StoreConnectedWidget<AppState, bool> {
 A state object connected to a Redux store. Useful in advanced scenarios where
 `StoreConnectedWidget` does not provide enough flexibility.
 
-Essentially works the same way as `StoreConnectedWidget`, e.g. rebuilds every 
+Essentially works the same way as `StoreConnectedWidget`, e.g. rebuilds every
 time connected state object is updated.
 
 However since this is a regular Flutter `State` you are free to declare
@@ -61,7 +61,7 @@ extra state properties or react to life cycle events (`initState`, `dispose`, et
 
 This class provides two additional life cycle hooks:
 
-* `connect()` method, called only once in the beginning of the object's life 
+* `connect()` method, called only once in the beginning of the object's life
   cycle. Normally useful to dispatch actions to the state store.
 * `disconnect()` method, called only once in the end of the object's life cycle
   before it's disposed. Similarly useful to dispatch actions to the state store
@@ -124,7 +124,7 @@ or with an error.
 > payload to it. This is intentional is we normally should receive updated
 > state through the state store subscription. The main purpose of `AsyncAction`
 > is to tell us when it's done and if there was an error.
-> This allows us to escape from declaring traditional trio of actions: 
+> This allows us to escape from declaring traditional trio of actions:
 > doSomething, doSomethingSuccess and doSomethingError, which is probably the
 > most annoying part of otherwise amazing Redux pattern.
 
@@ -133,10 +133,10 @@ Here is how we can rewrite `CommentsView` using `AsyncAction`:
 ```dart
 /// Example actions.
 abstract class Actions {
-  static const fetchComments = const ActionBuilder<void>('fetchComments');
-  /// New action using [AsyncActionBuidler].
+  static const fetchComments = const VoidActionBuilder('fetchComments');
+  /// New action using [AsyncVoidActionBuidler].
   static const fetchCommentsAsync =
-      const AsyncActionBuilder<void>('fetchCommentsAsync');
+      const AsyncVoidActionBuidler('fetchCommentsAsync');
 }
 
 class CommentsViewWithError extends StatefulWidget {
@@ -158,6 +158,7 @@ class _CommentsViewWithErrorState
     super.connect(); // must always call super
     if (state == null) {
       final action = Actions.fetchCommentsAsync();
+      /// We are only interested in failed scenario in this case.
       action.done.catchError(_handleFetchError);
       store.dispatch(action);
     }

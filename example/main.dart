@@ -1,12 +1,15 @@
+// Copyright (c) 2018, Anatoly Pulyaevskiy. All rights reserved. Use of this source code
+// is governed by a BSD-style license that can be found in the LICENSE file.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_redux_machine/flutter_redux_machine.dart';
 import 'package:redux_machine/redux_machine.dart';
 
 /// Example actions.
 abstract class Actions {
-  static const fetchComments = const ActionBuilder<void>('fetchComments');
+  static const fetchComments = const VoidActionBuilder('fetchComments');
   static const fetchCommentsAsync =
-      const AsyncActionBuilder<void>('fetchCommentsAsync');
+      const AsyncVoidActionBuilder('fetchCommentsAsync');
 }
 
 /// Example application state.
