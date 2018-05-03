@@ -90,7 +90,7 @@ abstract class StoreConnectedState<S, T, W extends StatefulWidget>
   /// the [store].
   ///
   /// Descendants are allowed to override this method. This is usually useful
-  /// to dispatch necessary actions. Overriden methods must always call super.
+  /// to dispatch necessary actions. Overridden methods must always call super.
   @protected
   @mustCallSuper
   void connect() {
@@ -100,6 +100,17 @@ abstract class StoreConnectedState<S, T, W extends StatefulWidget>
         .listen(_onData, onDone: _onDone, cancelOnError: false);
   }
 
+  /// Called whenever connected state object changes.
+  ///
+  /// This method is called during [setState] which is always followed by a
+  /// call to [build], which means any calls to [setState] in
+  /// [didUpdateStoreState] are redundant.
+  ///
+  /// Override this method to react on state changes.
+  @protected
+  @mustCallSuper
+  void didUpdateStoreState(T oldState) {}
+
   /// Disconnects this state object from the Redux Store.
   ///
   /// This method is called only once during lifecycle of this state object.
@@ -107,7 +118,7 @@ abstract class StoreConnectedState<S, T, W extends StatefulWidget>
   /// It is safe to access [store] and [state] objects from this method.
   ///
   /// Descendants are allowed to override this method. This is usually useful
-  /// to dispatch necessary actions. Overriden methods must always call super.
+  /// to dispatch necessary actions. Overridden methods must always call super.
   @protected
   @mustCallSuper
   void disconnect() {
@@ -156,7 +167,9 @@ abstract class StoreConnectedState<S, T, W extends StatefulWidget>
 
   void _onData(T data) {
     setState(() {
+      final oldState = _state;
       _state = data;
+      didUpdateStoreState(oldState);
     });
   }
 

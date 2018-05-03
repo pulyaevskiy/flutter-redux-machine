@@ -1,3 +1,7 @@
+## 1.0.0-dev.4.0
+
+- Added `StoreConnectedState.didUpdateStoreState`.
+
 ## 1.0.0-dev.3.0
 
 - Depend on latest `redux_machine` and relax constraint to "^1.0.0-rc".
