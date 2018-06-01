@@ -1,6 +1,7 @@
 ## 1.0.0-dev.4.0
 
-- Added `StoreConnectedState.didUpdateStoreState`.
+- Added: `StoreConnectedState.didUpdateStoreState` life cycle hook.
+  See README.md and dartdoc for more details.
 
 ## 1.0.0-dev.3.0
 

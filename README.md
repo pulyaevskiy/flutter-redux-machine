@@ -61,13 +61,16 @@ time connected state object is updated.
 However since this is a regular Flutter `State` you are free to declare
 extra state properties or react to life cycle events (`initState`, `dispose`, etc).
 
-This class provides two additional life cycle hooks:
+This class provides three additional life cycle hooks:
 
 * `connect()` method, called only once in the beginning of the object's life
   cycle. Normally useful to dispatch actions to the state store.
 * `disconnect()` method, called only once in the end of the object's life cycle
   before it's disposed. Similarly useful to dispatch actions to the state store
   or release any other allocated resources (e.g. cancel stream subscriptions).
+* `didUpdateStoreState(T oldState)` method, called each time connected
+  state object updates. This method is invoked during `setState()` call
+  so it is ok to update any additonal state fields here if needed.
 
 It is recommended to use `connect()` and `disconnect()` instead of `initState()`
 and `dispose()`. See documentation for more details.
