@@ -1,3 +1,7 @@
+## 1.0.0-dev.5.0
+
+- Prepare for Dart 2 stable.
+
 ## 1.0.0-dev.4.0
 
 - Added: `StoreConnectedState.didUpdateStoreState` life cycle hook.

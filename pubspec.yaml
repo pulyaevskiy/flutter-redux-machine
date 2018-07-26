@@ -1,6 +1,6 @@
 name: flutter_redux_machine
 description: Integrates redux_machine with Flutter.
-version: 1.0.0-dev.4.0
+version: 1.0.0-dev.5.0
 homepage: https://github.com/pulyaevskiy/flutter-redux-machine
 author: Anatoly Pulyaevskiy <email@example.com>
 
